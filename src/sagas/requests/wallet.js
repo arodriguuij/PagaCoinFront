@@ -4,7 +4,7 @@ const port = 5000;
 let path =
   window.location.protocol + "//" + window.location.hostname + ":" + port;
 
-export function requestGeWalletsByHashId(id) {
+export function requestGetWalletsByHashId(id) {
   console.log(path + "/wallets/ByHashId/" + id);
   return axios.request({
     method: "get",
@@ -26,6 +26,25 @@ export function requestPostWallet(name, quantity) {
     data: JSON.stringify({
       name: name,
       quantity: quantity,
+    }),
+  });
+}
+
+export function requestUpdateWalletByHashId(id, name, quantity) {
+  var formData = new FormData();
+  formData.append("name", name);
+  formData.append("quantity", quantity);
+
+  return axios.request({
+    method: "PATCH",
+    url: path + "/wallets/" + id,
+    body: formData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: JSON.stringify({
+      name,
+      quantity,
     }),
   });
 }

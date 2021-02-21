@@ -14,6 +14,33 @@ export const GET_RECEIVEDTRANSACTIONS_BYID = "GET_RECEIVEDTRANSACTIONS_BYID";
 const SET_RECEIVEDTRANSACTIONS_BYID = "SET_RECEIVEDTRANSACTIONS_BYID";
 const RESET_RECEIVEDTRANSACTIONS_BYID = "RESET_RECEIVEDTRANSACTION_BYID";
 
+export const POST_TRANSACTION = "POST_TRANSACTION";
+
+export const postTransaction = ({
+  userFromId,
+  userFromName,
+  walletFromId,
+  walletFromName,
+  userToId,
+  userToName,
+  walletToId,
+  walletToName,
+  quantity,
+}) => ({
+  type: POST_TRANSACTION,
+  props: {
+    userFromId,
+    userFromName,
+    walletFromId,
+    walletFromName,
+    userToId,
+    userToName,
+    walletToId,
+    walletToName,
+    quantity,
+  },
+});
+
 export const getSentTransactions = (id) => ({
   type: GET_SENTTRANSACTIONS,
   id,

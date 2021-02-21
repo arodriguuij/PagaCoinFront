@@ -3,21 +3,35 @@ import { useHistory } from "react-router-dom";
 
 import ItemList from "../ItemList";
 import ModalTransaction from "./ModalTransaction";
-
-import axios from "axios";
 import { CircularProgress } from "@material-ui/core";
 import { Container, Button } from "reactstrap";
+import {
+  getWalletsFromById,
+  getWalletsToById,
+  resetWalletsFromIds,
+  resetWalletsToIds,
+} from "../../redux/ducks/wallet";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../redux/ducks/user";
+import {
+  updateWalletToById,
+  updateWalletFromById,
+} from "./../../redux/ducks/wallet";
+import { postTransaction } from "../../redux/ducks/transaction";
 
 const TransferCoin = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const [users, setUsers] = useState([]);
+  const { walletsFrom, walletsTo, wallets } = useSelector(
+    (state) => state.wallets
+  );
+  const users = useSelector((state) => state.user.users);
+
   const [selectedUserFrom, setSelectedUserFrom] = useState("");
   const [selectedUserTo, setSelectedUserTo] = useState("");
   const [toggleFrom, setToggleFrom] = useState(false);
   const [toggleTo, setToggleTo] = useState(false);
-  const [walletsFrom, setWalletsFrom] = useState([]);
-  const [walletsTo, setWalletsTo] = useState([]);
   const [selectedWalletsFrom, setSelectedWalletsFrom] = useState("");
   const [selectedWalletsTo, setSelectedWalletsTo] = useState("");
 
@@ -25,7 +39,7 @@ const TransferCoin = () => {
   const toggleModal = () => setModal(!modal);
 
   const handleSelectUserFrom = (user) => {
-    setWalletsFrom([]);
+    dispatch(resetWalletsFromIds());
     setToggleFrom((prevState) => !prevState);
     setSelectedUserFrom(user);
     setSelectedWalletsFrom("");
@@ -36,7 +50,7 @@ const TransferCoin = () => {
     setSelectedUserTo("");
   };
   const handleSelectUserTo = (user) => {
-    setWalletsTo([]);
+    dispatch(resetWalletsToIds());
     setToggleTo((prevState) => !prevState);
     setSelectedUserTo(user);
     setSelectedWalletsTo("");
@@ -45,53 +59,23 @@ const TransferCoin = () => {
     setSelectedWalletsTo(wallet);
   };
 
-  const fetchUsers = async () => {
-    try {
-      const users = await axios.get("/users");
-      setUsers(users.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const fetchWalletTo = async (walletId) => {
-    try {
-      const wallet = await axios.get("/wallets/ByHashId/" + walletId);
-      setWalletsTo((prevState) => [...prevState, wallet.data[0]]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const fetchWalletFrom = async (walletId) => {
-    try {
-      const wallet = await axios.get("/wallets/ByHashId/" + walletId);
-      setWalletsFrom((prevState) => [...prevState, wallet.data[0]]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const updateWalletFrom = async (quantity) => {
-    try {
-      await axios.patch("/wallets/ByHashId/" + selectedWalletsFrom._id, {
-        name: selectedWalletsFrom.name,
-        quantity: selectedWalletsFrom.quantity - parseInt(quantity),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const updateWalletTo = async (quantity) => {
-    try {
-      await axios.patch("/wallets/ByHashId/" + selectedWalletsTo._id, {
-        name: selectedWalletsTo.name,
-        quantity: selectedWalletsTo.quantity + parseInt(quantity),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const postTransaction = async (quantity) => {
-    try {
-      await axios.post("/transactions", {
+  const makeTransaction = async (quantity) => {
+    dispatch(
+      updateWalletFromById(
+        selectedWalletsFrom._id,
+        selectedWalletsFrom.name,
+        selectedWalletsFrom.quantity - parseInt(quantity)
+      )
+    );
+    dispatch(
+      updateWalletToById(
+        selectedWalletsTo._id,
+        selectedWalletsTo.name,
+        selectedWalletsTo.quantity + parseInt(quantity)
+      )
+    );
+    dispatch(
+      postTransaction({
         userFromId: selectedUserFrom._id,
         userFromName: selectedUserFrom.name,
         walletFromId: selectedWalletsFrom.id,
@@ -101,27 +85,19 @@ const TransferCoin = () => {
         walletToId: selectedWalletsTo.id,
         walletToName: selectedWalletsTo.name,
         quantity: parseInt(quantity),
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      history.push("/transactions");
-    }
-  };
-  const makeTransaction = async (quantity) => {
-    updateWalletFrom(quantity);
-    updateWalletTo(quantity);
-    postTransaction(quantity);
+      })
+    );
+    history.push("/transactions");
   };
 
   useEffect(() => {
-    fetchUsers();
+    dispatch(getUsers());
   }, []);
 
   useEffect(() => {
     if (selectedUserTo) {
       selectedUserTo.wallets.map((wallet) => {
-        fetchWalletTo(wallet);
+        dispatch(getWalletsToById(wallet));
       });
     }
   }, [selectedUserTo, toggleTo]);
@@ -129,7 +105,7 @@ const TransferCoin = () => {
   useEffect(() => {
     if (selectedUserFrom) {
       selectedUserFrom.wallets.map((wallet) => {
-        fetchWalletFrom(wallet);
+        dispatch(getWalletsFromById(wallet));
       });
     }
   }, [selectedUserFrom, toggleFrom]);
@@ -144,6 +120,13 @@ const TransferCoin = () => {
     </button>
   );
 
+  console.log(
+    "walletsFrom, walletsTo ",
+    walletsFrom,
+    walletsTo,
+    wallets,
+    users
+  );
   return !users ? (
     <CircularProgress />
   ) : (

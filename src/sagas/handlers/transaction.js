@@ -4,6 +4,7 @@ import {
   requestGetReceivedTransactions,
   requestGetSentTransactions,
   requestGetSentTransactionsById,
+  requestPostTransaction,
 } from "./../requests/transaction";
 import {
   setSentTransactions,
@@ -52,6 +53,15 @@ export function* handleGetReceivedTransactionsById(action) {
     );
     const { data } = response;
     yield put(setReceivedTransactionsById(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handlePostTransaction({ props }) {
+  try {
+    yield call(() => requestPostTransaction(props));
+    debugger;
   } catch (error) {
     console.log(error);
   }
