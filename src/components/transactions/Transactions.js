@@ -159,7 +159,9 @@ const Transactions = () => {
           !isTransactions && (
             <div className="card">
               <h4>Wallets</h4>
-              <p>{selectedUserFrom.name} has no transactions</p>
+              <p>
+                {selectedUserFrom.name} has no transactions with this wallet
+              </p>
             </div>
           )}
       </Container>

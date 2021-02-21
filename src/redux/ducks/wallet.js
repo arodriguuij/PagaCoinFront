@@ -2,6 +2,15 @@ export const GET_WALLETS_BYID = "GET_WALLETS_BYID";
 const SET_WALLETS_BYID = "SET_WALLETS_BYID";
 const RESET_WALLETS_BYID = "RESET_WALLETS_BYID";
 
+export const POST_WALLET = "POST_WALLET";
+export const postWallet = ({ name, quantity }) => ({
+  type: POST_WALLET,
+  props: {
+    name,
+    quantity,
+  },
+});
+
 export const getWalletsById = (id) => ({
   type: GET_WALLETS_BYID,
   id,

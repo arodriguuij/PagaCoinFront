@@ -5,6 +5,9 @@ const ADDWALLET = "addWallet";
 const RESETWALLETS = "resetWallets";
 const SETWALLETNAME = "setWalletName";
 const SETWALLETQUANTITY = "setWalletQuantity";
+const RESET = "RESET";
+
+export const POST_USER = "POST_USER";
 
 export const setUserName = (name) => ({
   type: SETUSERNAME,
@@ -30,6 +33,13 @@ export const setWalletName = (name) => ({
 export const setWalletQuantity = (quantity) => ({
   type: SETWALLETQUANTITY,
   quantity,
+});
+export const postUser = (user) => ({
+  type: POST_USER,
+  user,
+});
+export const reset = () => ({
+  type: RESET,
 });
 
 const initialState = {
@@ -61,6 +71,8 @@ const newUserReducer = (state = initialState, action) => {
         ...state,
         newWallet: { ...state.newWallet, quantity: action.quantity },
       };
+    case RESET:
+      return initialState;
     default:
       return state;
   }

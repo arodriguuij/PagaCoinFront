@@ -24,7 +24,7 @@ export function requestGetSentTransactionsById(id) {
   });
 }
 
-export function requestGeReceivedTransactionsById(id) {
+export function requestGetReceivedTransactionsById(id) {
   return axios.request({
     method: "get",
     url: path + "/transactions/receivedByWallet/" + id,

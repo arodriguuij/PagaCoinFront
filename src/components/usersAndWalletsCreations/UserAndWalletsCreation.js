@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Form, Button } from "reactstrap";
-import axios from "axios";
 import ItemList from "../ItemList";
 import UserCreation from "./UserCreation";
 import WalletCreation from "./WalletCreation";
 import {
   setUserName,
   addWallets,
-  resetWallets,
   setWalletName,
   setWalletQuantity,
-  addWalletIds,
-  resetWalletIds,
+  postUser,
 } from "../../redux/ducks/newUser";
+import { postWallet } from "../../redux/ducks/wallet";
 
 const UserAndWalletsCreation = () => {
   const userName = useSelector((state) => state.newUser.name);
@@ -47,43 +45,26 @@ const UserAndWalletsCreation = () => {
     setIsAddWalletDisabled(false);
   };
 
-  const cleanForm = () => {
-    dispatch(setUserName(""));
-    dispatch(resetWallets());
-    dispatch(resetWalletIds());
-    dispatch(setWalletName(""));
-    dispatch(setWalletQuantity(null));
-    setIsAddWalletDisabled(false);
-  };
-
   const handleSubmit = () => {
     wallets.map(async (wallet) => {
-      try {
-        const walletPromise = await axios.post("/wallets", {
+      dispatch(
+        postWallet({
           name: wallet.name,
           quantity: wallet.quantity,
-        });
-        dispatch(addWalletIds(walletPromise.data.id));
-      } catch (error) {
-        console.log(error);
-      }
+        })
+      );
     });
   };
 
-  const fetchUser = async () => {
-    try {
-      await axios.post("/users", {
-        name: userName,
-        wallets: walletIds,
-      });
-      cleanForm();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    if (wallets.length && wallets.length === walletIds.length) fetchUser();
+    if (wallets.length && wallets.length === walletIds.length) {
+      dispatch(
+        postUser({
+          name: userName,
+          wallets: walletIds,
+        })
+      );
+    }
   }, [walletIds]);
 
   return (

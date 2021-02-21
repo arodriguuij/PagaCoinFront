@@ -55,7 +55,7 @@ const TransferCoin = () => {
   };
   const fetchWalletTo = async (walletId) => {
     try {
-      const wallet = await axios.get("/wallets/" + walletId);
+      const wallet = await axios.get("/wallets/ByHashId/" + walletId);
       setWalletsTo((prevState) => [...prevState, wallet.data[0]]);
     } catch (error) {
       console.log(error);
@@ -63,7 +63,7 @@ const TransferCoin = () => {
   };
   const fetchWalletFrom = async (walletId) => {
     try {
-      const wallet = await axios.get("/wallets/" + walletId);
+      const wallet = await axios.get("/wallets/ByHashId/" + walletId);
       setWalletsFrom((prevState) => [...prevState, wallet.data[0]]);
     } catch (error) {
       console.log(error);
@@ -71,7 +71,7 @@ const TransferCoin = () => {
   };
   const updateWalletFrom = async (quantity) => {
     try {
-      await axios.patch("/wallets/" + selectedWalletsFrom._id, {
+      await axios.patch("/wallets/ByHashId/" + selectedWalletsFrom._id, {
         name: selectedWalletsFrom.name,
         quantity: selectedWalletsFrom.quantity - parseInt(quantity),
       });
@@ -81,7 +81,7 @@ const TransferCoin = () => {
   };
   const updateWalletTo = async (quantity) => {
     try {
-      await axios.patch("/wallets/" + selectedWalletsTo._id, {
+      await axios.patch("/wallets/ByHashId/" + selectedWalletsTo._id, {
         name: selectedWalletsTo.name,
         quantity: selectedWalletsTo.quantity + parseInt(quantity),
       });

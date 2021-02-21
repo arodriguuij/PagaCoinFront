@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import {
-  requestGeReceivedTransactionsById,
+  requestGetReceivedTransactionsById,
   requestGetReceivedTransactions,
   requestGetSentTransactions,
   requestGetSentTransactionsById,
@@ -48,7 +48,7 @@ export function* handleGetSentTransactionsById(action) {
 export function* handleGetReceivedTransactionsById(action) {
   try {
     const response = yield call(() =>
-      requestGeReceivedTransactionsById(action.id)
+      requestGetReceivedTransactionsById(action.id)
     );
     const { data } = response;
     yield put(setReceivedTransactionsById(data));
