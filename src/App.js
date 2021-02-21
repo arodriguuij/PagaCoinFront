@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from "react-router-dom";
 
-function App() {
+import { TransferCoin } from "./components/transferCoin";
+import { UserAndWalletsCreation } from "./components/usersAndWalletsCreations";
+import { Transactions } from "./components/transactions";
+import Home from "./components/Home";
+import Layout from "./components/Layout";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Route path="/transferCoins">
+          <TransferCoin />
+        </Route>
+        <Route path="/userAndWalletsCreation">
+          <UserAndWalletsCreation />
+        </Route>
+        <Route path="/transactions">
+          <Transactions />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Layout>
   );
-}
+};
 
 export default App;
