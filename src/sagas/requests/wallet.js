@@ -5,7 +5,6 @@ let path =
   window.location.protocol + "//" + window.location.hostname + ":" + port;
 
 export function requestGetWalletsByHashId(id) {
-  console.log(path + "/wallets/ByHashId/" + id);
   return axios.request({
     method: "get",
     url: path + "/wallets/ByHashId/" + id,

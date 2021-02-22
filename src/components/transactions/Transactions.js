@@ -28,6 +28,7 @@ const Transactions = () => {
   const wallets = useSelector((state) => state.wallets.wallets);
 
   const [selectedUserFrom, setSelectedUserFrom] = useState("");
+  const [selectedWalletFrom, setSelectedWalletFrom] = useState("");
   const [toggleFrom, setToggleFrom] = useState(false);
   const [isTransactions, setIsTransactions] = useState(false);
   const [isWalletClicked, setIsWalletClicked] = useState(false);
@@ -36,6 +37,7 @@ const Transactions = () => {
     setIsTransactions(type === "transactions");
     setToggleFrom((prevState) => !prevState);
     setSelectedUserFrom(user);
+    setSelectedWalletFrom("");
     dispatch(resetWalletIds());
     dispatch(resetSentTransactions());
     dispatch(resetReceivedTransactions());
@@ -47,6 +49,7 @@ const Transactions = () => {
   const handleWalletSelect = async (wallet) => {
     if (isTransactions === false) {
       setIsWalletClicked(true);
+      setSelectedWalletFrom(wallet);
       dispatch(getSentTransactionsById(wallet.id));
       dispatch(getReceivedTransactionsById(wallet.id));
     }
@@ -136,7 +139,7 @@ const Transactions = () => {
               <ItemList
                 items={sentTransactionsById}
                 onHandleSelect={() => {}}
-                title={`${selectedUserFrom.name}'s transactions`}
+                title={`${selectedWalletFrom.name}'s transactions`}
                 show={"name"}
                 showMore={"quantity"}
                 type={"transactions"}
@@ -159,9 +162,7 @@ const Transactions = () => {
           !isTransactions && (
             <div className="card">
               <h4>Wallets</h4>
-              <p>
-                {selectedUserFrom.name} has no transactions with this wallet
-              </p>
+              <p>{selectedWalletFrom.name} has no transactions</p>
             </div>
           )}
       </Container>

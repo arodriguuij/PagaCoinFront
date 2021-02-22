@@ -24,7 +24,10 @@ const ModalTransaction = ({
     setQuantityToSend(e.target.value);
   };
   const onMakeTransaction = () => {
-    if (quantityToSend !== 0 && quantityToSend <= selectedWalletsFrom.quantity) {
+    if (
+      quantityToSend !== 0 &&
+      quantityToSend <= selectedWalletsFrom?.quantity
+    ) {
       makeTransaction(quantityToSend);
     }
   };
@@ -43,7 +46,7 @@ const ModalTransaction = ({
           <Input
             placeholder="Amount"
             min={0}
-            max={selectedWalletsFrom.quantity}
+            max={selectedWalletsFrom?.quantity}
             type="number"
             step="1"
             onChange={handleQuantityChange}
@@ -58,7 +61,9 @@ const ModalTransaction = ({
             onMakeTransaction();
             toggleModal();
           }}
-          disabled={quantityToSend <= 0 || quantityToSend > selectedWalletsFrom.quantity}
+          disabled={
+            quantityToSend <= 0 || quantityToSend > selectedWalletsFrom.quantity
+          }
         >
           Make transaction
         </Button>

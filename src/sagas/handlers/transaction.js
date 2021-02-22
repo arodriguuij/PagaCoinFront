@@ -61,7 +61,6 @@ export function* handleGetReceivedTransactionsById(action) {
 export function* handlePostTransaction({ props }) {
   try {
     yield call(() => requestPostTransaction(props));
-    debugger;
   } catch (error) {
     console.log(error);
   }

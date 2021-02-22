@@ -10,8 +10,13 @@ import {
   setWalletName,
   setWalletQuantity,
   postUser,
+  reset,
+  resetNewWallet,
 } from "../../redux/ducks/newUser";
 import { postWallet } from "../../redux/ducks/wallet";
+
+const isEmptyObject = (obj) =>
+  obj && Object.keys(obj).length === 0 && obj.constructor === Object;
 
 const UserAndWalletsCreation = () => {
   const userName = useSelector((state) => state.newUser.name);
@@ -21,7 +26,9 @@ const UserAndWalletsCreation = () => {
 
   const dispatch = useDispatch();
 
-  const [isAddWalletDisabled, setIsAddWalletDisabled] = useState(false);
+  const [isAddWalletDisabled, setIsAddWalletDisabled] = useState(
+    isEmptyObject(newWallet)
+  );
 
   const handleUserNameChange = (e) => {
     dispatch(setUserName(e.target.value));
@@ -36,12 +43,12 @@ const UserAndWalletsCreation = () => {
     setIsAddWalletDisabled((prevState) => !prevState);
   };
   const cancelWallet = () => {
-    dispatch(setWalletName(""));
-    dispatch(setWalletQuantity(null));
+    dispatch(resetNewWallet());
     setIsAddWalletDisabled(false);
   };
   const addWallet = () => {
     dispatch(addWallets());
+    dispatch(resetNewWallet());
     setIsAddWalletDisabled(false);
   };
 
@@ -64,8 +71,17 @@ const UserAndWalletsCreation = () => {
           wallets: walletIds,
         })
       );
+      dispatch(reset());
     }
   }, [walletIds]);
+
+  useEffect(() => {
+    if (!isEmptyObject(newWallet)) {
+      setIsAddWalletDisabled(true);
+    } else {
+      setIsAddWalletDisabled(false);
+    }
+  }, [newWallet]);
 
   return (
     <>

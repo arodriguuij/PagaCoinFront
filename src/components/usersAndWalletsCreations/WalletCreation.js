@@ -1,14 +1,14 @@
 import React from "react";
-import {
-    Container,
-    Col,
-    FormGroup,
-    Label,
-    Input,
-    Button,
-  } from "reactstrap";
+import { Container, Col, FormGroup, Label, Input, Button } from "reactstrap";
 
-const WalletCreation = ({handleWalletNameChange, handleWalletQuantityChange, addWallet, walletName, walletsQuantity, cancelWallet}) => {
+const WalletCreation = ({
+  handleWalletNameChange,
+  handleWalletQuantityChange,
+  addWallet,
+  walletName,
+  walletsQuantity,
+  cancelWallet,
+}) => {
   return (
     <Container>
       <Col className="card">
@@ -17,6 +17,7 @@ const WalletCreation = ({handleWalletNameChange, handleWalletQuantityChange, add
           <Input
             type="text"
             name="userName"
+            value={walletName}
             id="userName"
             placeholder="Introduce the wallet's name"
             onChange={handleWalletNameChange}
@@ -27,6 +28,7 @@ const WalletCreation = ({handleWalletNameChange, handleWalletQuantityChange, add
           <Input
             type="number"
             name="quantity"
+            value={walletsQuantity}
             id="quantity"
             placeholder="Introduce the quantity"
             onChange={handleWalletQuantityChange}

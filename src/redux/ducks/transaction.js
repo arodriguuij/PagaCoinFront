@@ -1,21 +1,19 @@
+// Actions
 export const GET_SENTTRANSACTIONS = "GET_SENTTRANSACTIONS";
 const SET_SENTTRANSACTIONS = "SET_SENTTRANSACTIONS";
 const RESET_SENTTRANSACTIONS = "RESET_SENTTRANSACTION";
-
 export const GET_RECEIVEDTRANSACTIONS = "GET_RECEIVEDTRANSACTIONS";
 const SET_RECEIVEDTRANSACTIONS = "SET_RECEIVEDTRANSACTIONS";
 const RESET_RECEIVEDTRANSACTIONS = "RESET_RECEIVEDTRANSACTION";
-
 export const GET_SENTTRANSACTIONS_BYID = "GET_SENTTRANSACTIONS_BYID";
 const SET_SENTTRANSACTIONS_BYID = "SET_SENTTRANSACTIONS_BYID";
 const RESET_SENTTRANSACTIONS_BYID = "RESET_SENTTRANSACTION_BYID";
-
 export const GET_RECEIVEDTRANSACTIONS_BYID = "GET_RECEIVEDTRANSACTIONS_BYID";
 const SET_RECEIVEDTRANSACTIONS_BYID = "SET_RECEIVEDTRANSACTIONS_BYID";
 const RESET_RECEIVEDTRANSACTIONS_BYID = "RESET_RECEIVEDTRANSACTION_BYID";
-
 export const POST_TRANSACTION = "POST_TRANSACTION";
 
+// Action Creators
 export const postTransaction = ({
   userFromId,
   userFromName,
@@ -40,7 +38,6 @@ export const postTransaction = ({
     quantity,
   },
 });
-
 export const getSentTransactions = (id) => ({
   type: GET_SENTTRANSACTIONS,
   id,
@@ -52,7 +49,6 @@ export const setSentTransactions = (sentTransactions) => ({
 export const resetSentTransactions = () => ({
   type: RESET_SENTTRANSACTIONS,
 });
-
 export const getReceivedTransactions = (id) => ({
   type: GET_RECEIVEDTRANSACTIONS,
   id,
@@ -64,7 +60,6 @@ export const setReceivedTransactions = (receivedTransactions) => ({
 export const resetReceivedTransactions = () => ({
   type: RESET_RECEIVEDTRANSACTIONS,
 });
-
 export const getSentTransactionsById = (id) => ({
   type: GET_SENTTRANSACTIONS_BYID,
   id,
@@ -76,7 +71,6 @@ export const setSentTransactionsById = (sentTransactionsById) => ({
 export const resetSentTransactionsById = () => ({
   type: RESET_SENTTRANSACTIONS_BYID,
 });
-
 export const getReceivedTransactionsById = (id) => ({
   type: GET_RECEIVEDTRANSACTIONS_BYID,
   id,
@@ -89,6 +83,7 @@ export const resetReceivedTransactionsById = () => ({
   type: RESET_RECEIVEDTRANSACTIONS_BYID,
 });
 
+// Reducer
 const initialState = {
   sentTransactions: [],
   receivedTransactions: [],
