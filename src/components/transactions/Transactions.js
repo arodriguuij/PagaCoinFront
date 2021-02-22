@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgress } from "@material-ui/core";
-import ItemList from "../ItemList";
+import ItemList from "../ItemList/ItemList";
 import { Container } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/ducks/user";

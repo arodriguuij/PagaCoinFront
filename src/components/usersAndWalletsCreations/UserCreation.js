@@ -11,18 +11,24 @@ const UserCreation = ({
     <Container>
       <Col>
         <FormGroup>
-          <Label>User name</Label>
+          <Label for="user-name">User name</Label>
           <Input
             type="text"
             name="userName"
             id="userName"
+            aria-label="user-name"
             placeholder="Introduce your name"
             value={userName}
             onChange={handleUserNameChange}
           />
         </FormGroup>
       </Col>
-      <Button type="button" onClick={showWallet} disabled={isAddWalletDisabled}>
+      <Button
+        type="button"
+        onClick={showWallet}
+        data-testid="add-wallet"
+        disabled={isAddWalletDisabled}
+      >
         Add wallet
       </Button>
     </Container>

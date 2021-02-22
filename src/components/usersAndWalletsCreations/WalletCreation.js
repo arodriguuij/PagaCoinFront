@@ -18,6 +18,7 @@ const WalletCreation = ({
             type="text"
             name="userName"
             value={walletName}
+            aria-label="wallet-name"
             id="userName"
             placeholder="Introduce the wallet's name"
             onChange={handleWalletNameChange}
@@ -29,6 +30,7 @@ const WalletCreation = ({
             type="number"
             name="quantity"
             value={walletsQuantity}
+            aria-label="wallet-quantity"
             id="quantity"
             placeholder="Introduce the quantity"
             onChange={handleWalletQuantityChange}
@@ -40,6 +42,7 @@ const WalletCreation = ({
             onClick={addWallet}
             disabled={!walletName || !walletsQuantity || walletsQuantity < 0}
             style={{ margin: "1rem" }}
+            data-testid="add-wallet"
           >
             Add
           </Button>
@@ -48,6 +51,7 @@ const WalletCreation = ({
             type="button"
             onClick={cancelWallet}
             style={{ margin: "1rem" }}
+            data-testid="cancel-wallet"
           >
             Cancel
           </Button>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Form, Button } from "reactstrap";
-import ItemList from "../ItemList";
+import ItemList from "../ItemList/ItemList";
 import UserCreation from "./UserCreation";
 import WalletCreation from "./WalletCreation";
 import {
@@ -112,6 +112,7 @@ const UserAndWalletsCreation = () => {
               color="primary"
               onClick={handleSubmit}
               style={{ margin: "1rem" }}
+              data-testid="submit-user"
               disabled={
                 wallets.length === 0 || !userName || isAddWalletDisabled
               }

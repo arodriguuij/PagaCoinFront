@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import ItemList from "../ItemList";
+import ItemList from "../ItemList/ItemList";
 import ModalTransaction from "./ModalTransaction";
 import { CircularProgress } from "@material-ui/core";
 import { Container, Button } from "reactstrap";
@@ -34,7 +34,7 @@ const TransferCoin = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { walletsFrom, walletsTo, wallets, walletFrom, walletTo } = useSelector(
+  const { walletsFrom, walletsTo, walletFrom, walletTo } = useSelector(
     (state) => state.wallets
   );
   const { users, userFrom, userTo } = useSelector((state) => state.user);
@@ -174,7 +174,8 @@ const TransferCoin = () => {
               titleExtra={`${userFrom.name}'s wallets`}
               show={"name"}
               showMore={"quantity"}
-              type={"double"}
+              showExtraMore={"id"}
+              type={"triple"}
               color="info"
             />
           </div>
@@ -200,7 +201,8 @@ const TransferCoin = () => {
               title={"Step 4/5"}
               show={"name"}
               showMore={"quantity"}
-              type={"double"}
+              showExtraMore={"id"}
+              type={"triple"}
               color="info"
             />
           </div>

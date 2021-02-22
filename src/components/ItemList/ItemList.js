@@ -14,8 +14,11 @@ const TransactionsItem = (
 const SimpleItem = (show) => {
   return `${show}`;
 };
-const Doubletem = (show, showMore) => {
+const DoubleItem = (show, showMore) => {
   return `${show} - ${showMore}$`;
+};
+const TripleItem = (show, showMore, showExtraMore) => {
+  return `${show} - ${showMore}$ - hashId: ${showExtraMore}`;
 };
 
 const ItemList = ({
@@ -26,6 +29,7 @@ const ItemList = ({
   color,
   show,
   showMore,
+  showExtraMore,
   title,
   titleExtra,
   type,
@@ -37,6 +41,7 @@ const ItemList = ({
         <ListGroup>
           {items.map((item, index) => (
             <Button
+            
               key={index}
               color={color ? color : "secondary"}
               style={{ margin: "0.3rem" }}
@@ -53,7 +58,9 @@ const ItemList = ({
               ) : type === "simple" ? (
                 SimpleItem(item[show])
               ) : type === "double" ? (
-                Doubletem(item[show], item[showMore])
+                DoubleItem(item[show], item[showMore])
+              ) : type === "triple" ? (
+                TripleItem(item[show], item[showMore], item[showExtraMore])
               ) : (
                 <div className="flexItem">
                   <div>{item[show]}</div>

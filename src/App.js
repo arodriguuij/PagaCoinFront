@@ -3,8 +3,8 @@ import { Switch, Route } from "react-router-dom";
 import { TransferCoin } from "./components/transferCoin";
 import { UserAndWalletsCreation } from "./components/usersAndWalletsCreations";
 import { Transactions } from "./components/transactions";
-import Home from "./components/Home";
-import Layout from "./components/Layout";
+import Home from "./components/Home/Home";
+import Layout from "./components/Layout/Layout";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

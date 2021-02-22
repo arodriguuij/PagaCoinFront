@@ -6,7 +6,6 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta2",
@@ -46,7 +45,11 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@testing-library/react": "^11.2.5",
+    "jest-dom": "^4.0.0",
+    "react-test-renderer": "^17.0.1"
+  },
   "author": "Alejandro Rodriguez",
   "license": "ISC"
 }
